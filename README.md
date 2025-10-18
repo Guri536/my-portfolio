@@ -1,73 +1,51 @@
-# Welcome to your Lovable project
+# Guri's Personal Portfolio Website
 
-## Project info
+Welcome to the source code for my personal portfolio! This project was built to showcase my skills, professional experience, and the projects I've worked on. It's designed to be clean, modern, and fully responsive.
 
-**URL**: https://lovable.dev/projects/6528e168-1e4b-47c8-81db-de2f81726489
+[![Live Site](https://img.shields.io/badge/Live-Site-blue?style=for-the-badge&logo=google-chrome)](https://guri536.github.io/my-protfolio/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## Live Demo
 
-**Use Lovable**
+You can view the live deployment of this project here:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6528e168-1e4b-47c8-81db-de2f81726489) and start prompting.
+**[https://guri536.github.io/my-protfolio/](https://guri536.github.io/my-protfolio/)**
 
-Changes made via Lovable will be committed automatically to this repo.
+## Screenshot
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+-   **Modern Design:** A clean and minimalist UI to keep the focus on the content.
+-   **Fully Responsive:** Looks great on all devices, from mobile phones to desktop screens.
+-   **Project Showcase:** A dedicated section to display my work with links to live demos and source code.
+-   **Skills Section:** Highlights my technical skills and proficiencies.
+-   **Contact Form:** An easy way for visitors to get in touch with me.
+-   **Smooth Animations:** Subtle animations and transitions to enhance the user experience.
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+This project was built using the following technologies:
 
-# Step 3: Install the necessary dependencies.
-npm i
+-   **Frontend:** [React](https://reactjs.org/)
+-   **Build Tool:** [Vite](https://vitejs.dev/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Styling:** *(e.g., CSS Modules, Tailwind CSS, Styled Components - **Please update this**)*
+-   **Deployment:** [GitHub Pages](https://pages.github.com/) with GitHub Actions
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## Let's Connect!
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+I'm always open to connecting with other developers and discussing new opportunities. Feel free to reach out!
 
-**Use GitHub Codespaces**
+-   **LinkedIn:** [Your Name](https://www.linkedin.com/in/your-linkedin-profile/)
+-   **Twitter / X:** [@your-twitter-handle](https://twitter.com/your-twitter-handle)
+-   **Email:** [your.email@example.com](mailto:your.email@example.com)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6528e168-1e4b-47c8-81db-de2f81726489) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
