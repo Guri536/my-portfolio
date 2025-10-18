@@ -28,7 +28,7 @@ const Hero = () => {
             <span className="gradient-text">Gursimranjit Singh</span>
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-4">
-            Full-Stack Developer & Creative Technologist
+            Full-Stack & Android Developer
           </p>
           <p className="text-lg md:text-xl text-muted-foreground/80 mb-8 max-w-2xl mx-auto">
             Computer Science Student crafting innovative solutions with modern technologies
@@ -43,7 +43,7 @@ const Hero = () => {
               asChild
             >
               <a href="https://github.com/Guri536" target="_blank" rel="noopener noreferrer">
-                <Github className="h-5 w-5" />
+                <Github className="h-15 w-15" />
               </a>
             </Button>
             <Button
@@ -52,8 +52,8 @@ const Hero = () => {
               className="glass-card hover:glow-effect transition-all"
               asChild
             >
-              <a href="https://linkedin.com/in/ingursimranjit" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="h-5 w-5" />
+              <a href="https://www.linkedin.com/in/gursimranjit-singh-2ab127288/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-15 w-15" />
               </a>
             </Button>
             <Button
@@ -62,8 +62,8 @@ const Hero = () => {
               className="glass-card hover:glow-effect transition-all"
               asChild
             >
-              <a href="mailto:gursim3388@gmail.com">
-                <Mail className="h-5 w-5" />
+              <a href="mailto:gursim3388@gmail.com" target="_blank">
+                <Mail className="h-15 w-15" />
               </a>
             </Button>
           </div>

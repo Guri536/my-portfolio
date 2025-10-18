@@ -16,14 +16,14 @@ const Projects = () => {
       title: "LoopLink",
       description: "Multiplatform LAN-based collaboration application for Android and Desktop, enabling seamless local network communication and file sharing.",
       tech: ["Kotlin Multiplatform", "Compose Multiplatform", "Ktor", "SQLDelight", "WebSockets"],
-      category: "Cross-Platform"
+      category: "Cross-Platform Application"
     },
     {
       title: "IoT RFID Attendance System",
       description: "Innovative IoT-based attendance tracking system using RFID technology. Secured 2nd Runner Up at Android Expo 2023.",
       tech: ["IoT", "RFID", "Android", "Firebase"],
       award: "2nd Runner Up Android Expo 2023",
-      category: "IoT & Android"
+      category: "IoT"
     },
     {
       title: "Motorized Robotic Arm",
@@ -95,7 +95,7 @@ const Projects = () => {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, i) => (
-                    <Badge key={i} variant="secondary" className="bg-muted/50">
+                    <Badge key={i} variant="secondary" className="bg-muted/50 text-gray-600 hover:text-gray-400 hover:bg-muted/80">
                       {tech}
                     </Badge>
                   ))}

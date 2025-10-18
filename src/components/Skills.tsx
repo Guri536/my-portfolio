@@ -9,15 +9,15 @@ const Skills = () => {
     },
     {
       title: "Frontend Development",
-      skills: ["React", "Next.js", "Jetpack Compose", "Flutter", "TailwindCSS", "Bootstrap 5", "Material Design"]
+      skills: ["React", "Next.js", "Jetpack Compose", "TailwindCSS", "Bootstrap 5", "Material Design"]
     },
     {
       title: "Backend Development",
-      skills: ["Node.js", "Django", "Laravel", "Flask", "Express", "Ktor"]
+      skills: ["Node.js", "Django", "Laravel", "Ktor", "KMP"]
     },
     {
       title: "Databases",
-      skills: ["MySQL", "MongoDB", "PostgreSQL", "SQLite", "SQLDelight", "Firebase"]
+      skills: ["MySQL", "MongoDB", "SQLite", "SQLDelight", "Firebase"]
     },
     {
       title: "Tools & Platforms",
@@ -25,7 +25,7 @@ const Skills = () => {
     },
     {
       title: "Specialized",
-      skills: ["Kotlin Multiplatform", "Compose Multiplatform", "WebSockets", "IoT", "RFID", "3D Printing", "Robotics"]
+      skills: ["Android Development", "Compose", "KMP", "Networking", "Django"]
     }
   ];
 
@@ -55,7 +55,7 @@ const Skills = () => {
                     <Badge 
                       key={i} 
                       variant="secondary"
-                      className="bg-primary/10 hover:bg-primary/20 border-primary/30 transition-colors"
+                      className="bg-primary/10 hover:bg-primary/20 border-primary/30 transition-colors text-xs text-white-200 p-2"
                     >
                       {skill}
                     </Badge>
@@ -77,7 +77,7 @@ const Skills = () => {
                 <Badge 
                   key={i}
                   variant="outline"
-                  className="text-base py-2 px-4 border-secondary/50 hover:border-secondary hover:bg-secondary/10 transition-colors"
+                  className="text-sm py-2 px-4 border-primary/50 hover:border-secondary hover:bg-secondary/20 transition-colors"
                 >
                   {skill}
                 </Badge>

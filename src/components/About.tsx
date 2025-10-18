@@ -42,7 +42,7 @@ const About = () => {
             <p className="text-lg leading-relaxed text-muted-foreground mb-6">
               I'm a passionate Computer Science student at Chandigarh University, specializing in creating 
               innovative solutions across multiple platforms. With expertise spanning from Android development 
-              with Kotlin to full-stack web applications with React and Laravel, I bring ideas to life through 
+              with Kotlin to full-stack web applications with Django, React and Laravel, I bring ideas to life through
               clean code and thoughtful design.
             </p>
             <p className="text-lg leading-relaxed text-muted-foreground mb-6">

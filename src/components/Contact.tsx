@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import {Github, Instagram, Linkedin, Mail, Phone} from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -11,12 +11,6 @@ const Contact = () => {
       href: "mailto:gursim3388@gmail.com"
     },
     {
-      icon: Phone,
-      label: "Phone",
-      value: "+91 88377 89697",
-      href: "tel:+918837789697"
-    },
-    {
       icon: Github,
       label: "GitHub",
       value: "Guri536",
@@ -26,8 +20,14 @@ const Contact = () => {
       icon: Linkedin,
       label: "LinkedIn",
       value: "ingursimranjit",
-      href: "https://linkedin.com/in/ingursimranjit"
-    }
+      href: "https://www.linkedin.com/in/gursimranjit-singh-2ab127288/"
+    },
+      {
+          icon: Instagram,
+          label: "Instagram",
+          value: "instagram",
+          href: "https://www.instagram.com/g.u.r.i_._s/"
+      }
   ];
 
   return (
@@ -54,7 +54,7 @@ const Contact = () => {
                   <a 
                     key={index}
                     href={contact.href}
-                    target={contact.href.startsWith('http') ? '_blank' : undefined}
+                    target={contact.href.startsWith('http') ? '_blank' : "_blank"}
                     rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="block"
                   >
@@ -104,11 +104,11 @@ const Contact = () => {
                   </div>
                   <div className="hidden md:block">•</div>
                   <div>
-                    <span className="font-medium">Location:</span> Mohali, Punjab, India
+                    <span className="font-medium">Location:</span> Punjab, India
                   </div>
                   <div className="hidden md:block">•</div>
                   <div>
-                    <span className="font-medium">Interests:</span> Writing, Designing, Reading, Puzzles, Coding
+                    <span className="font-medium">Interests:</span> Writing, Designing, Reading, Puzzles
                   </div>
                 </div>
               </CardContent>
