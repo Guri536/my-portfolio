@@ -1,10 +1,77 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Bytesized&display=swap");
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10+Charted&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bytesized&family=Doto:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@keyframes flash {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@theme {
+  /* Fonts */
+  --font-bytesized: "Bytesized", sans-serif;
+  --font-dotted: "Doto", sans-serif;
+  --font-pixely: "Pixelify Sans", sans-serif;
+  --font-lightPixel: "Jersey 10 Charted", sans-serif;
+  --font-distorted: "Coral Pixels", serif;
+  --animate-flash: flash 1s infinite;
+
+  /* Base & Shadcn UI Colors mapped for v4 */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Map Shadcn border-radius utilities (rounded-lg, rounded-md, etc.) */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Custom Portfolio Colors */
+  --color-gradient-start: hsl(var(--gradient-start));
+  --color-gradient-mid: hsl(var(--gradient-mid));
+  --color-gradient-end: hsl(var(--gradient-end));
+
+  --color-glass-bg: hsl(var(--glass-bg));
+  --color-glass-border: hsl(var(--glass-border));
+
+  --color-accent-glow: hsl(var(--accent-glow));
+  --color-secondary-glow: hsl(var(--secondary-glow));
+}
 
 @layer base {
   :root {
@@ -17,16 +84,16 @@ All colors MUST be HSL.
     --popover: 220 24% 10%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 195 100% 60%;
+    --primary: 115 100% 60%;
     --primary-foreground: 220 26% 6%;
 
-    --secondary: 270 80% 65%;
+    --secondary: 200 80% 65%;
     --secondary-foreground: 220 26% 6%;
 
     --muted: 220 20% 20%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 195 100% 60%;
+    --accent: 115 100% 60%;
     --accent-foreground: 220 26% 6%;
 
     --destructive: 0 84% 60%;
@@ -42,23 +109,23 @@ All colors MUST be HSL.
     --gradient-start: 195 100% 60%;
     --gradient-mid: 270 80% 65%;
     --gradient-end: 280 90% 70%;
-    
+
     --glass-bg: 220 24% 10% / 0.6;
     --glass-border: 220 20% 25% / 0.3;
-    
+
     --accent-glow: 195 100% 60%;
     --secondary-glow: 270 80% 65%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
   html {
@@ -66,16 +133,19 @@ All colors MUST be HSL.
   }
 }
 
-@layer utilities {
-  .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-white/10;
-  }
+/* Idiomatic v4 Custom Utilities */
+@utility glass-card {
+  @apply bg-card/60 backdrop-blur-xl border border-white/10;
+}
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
-  }
+@utility gradient-text {
+  @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
+}
 
-  .glow-effect {
-    box-shadow: 0 0 40px hsl(var(--accent-glow) / 0.3);
-  }
+@utility glow-effect {
+  box-shadow: 0 0 20px hsl(var(--accent-glow) / 0.2);
+}
+
+@utility rise-on-hover {
+  @apply transition-all duration-100 ease-in-out hover:-translate-y-1 hover:scale-105;
 }
