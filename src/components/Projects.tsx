@@ -1,103 +1,158 @@
-import { ExternalLink, Github, Trophy } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Github, Trophy, Terminal } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 const Projects = () => {
+  const [filter, setFilter] = useState("ALL");
+  const categories = ["ALL", "AI/ML", "MOBILE", "FULL-STACK", "HARDWARE", "IOT"];
+
   const projects = [
     {
+      title: "Plant Vita",
+      description: "Full-stack IoT plant monitor collecting telemetry via ESP32 into a central FastAPI server. Built a vision pipeline (SAM3, ResNet18) with Gemini LLM escalation for health verdicts.",
+      tech: ["FastAPI", "PyTorch", "React", "Docker", "ESP32"],
+      award: "Presented at AI Hackmatrix 2026",
+      category: ["AI/ML", "FULL-STACK", "HARDWARE", "IOT", "MOBILE"],
+      featured: true
+    },
+    {
+      title: "Peri-Lily",
+      description: "Serverless Android safety app with a covert decoy UI. Streams speech through an on-device Python NLP engine (Chaquopy) with offline SQLite storage and SOS dispatch.",
+      tech: ["Flutter", "Kotlin", "Chaquopy", "SQLite"],
+      category: ["MOBILE", "AI/ML"],
+      featured: true
+    },
+    {
       title: "Resumini",
-      description: "AI-assisted resume builder using Laravel, Gemini API, and LaTeX. Winner of Mind Maze Showcase with practical use cases and impressive presentation.",
-      tech: ["Laravel", "TailwindCSS", "Vite", "Gemini API", "pdfLaTeX", "Pandoc"],
-      award: "Winner Mind Maze",
-      category: "Web Development"
+      description: "Chat-based resume generator where an LLM collects user information conversationally, generating LaTeX exports via pdfLaTeX and Pandoc CLI.",
+      tech: ["Laravel", "Gemini API", "pdfLaTeX", "Pandoc"],
+      award: "1st Prize Mind Maze 2024",
+      category: ["FULL-STACK", "AI/ML"],
+      featured: false
     },
     {
       title: "LoopLink",
-      description: "Multiplatform LAN-based collaboration application for Android and Desktop, enabling seamless local network communication and file sharing.",
-      tech: ["Kotlin Multiplatform", "Compose Multiplatform", "Ktor", "SQLDelight", "WebSockets"],
-      category: "Cross-Platform Application"
+      description: "Zero-configuration LAN chat and file-sharing app broadcasting peers via mDNS and connecting over WebSockets.",
+      tech: ["Kotlin Multiplatform", "Ktor", "JmDNS", "SQLDelight"],
+      category: ["MOBILE", "FULL-STACK"],
+      featured: false
     },
     {
-      title: "IoT RFID Attendance System",
-      description: "Innovative IoT-based attendance tracking system using RFID technology. Secured 2nd Runner Up at Android Expo 2023.",
-      tech: ["IoT", "RFID", "Android", "Firebase"],
-      award: "2nd Runner Up Android Expo 2023",
-      category: "IoT"
+      title: "RFID Attendance System",
+      description: "Physical mock-campus model reading RFID cards and logging attendance to Google Sheets via ESP32 HTTP requests, featuring MAC-address geofencing.",
+      tech: ["ESP32", "Arduino", "AppScript", "RFID"],
+      award: "1st Place Project Expo 2024",
+      category: ["HARDWARE", "IOT"],
+      featured: false
     },
     {
       title: "Motorized Robotic Arm",
-      description: "Fully 3D printed motorized robotic arm with precise control. Winner of Tech Expo 2024, showcasing mechanical and software integration.",
-      tech: ["3D Printing", "Arduino", "Servo Control", "CAD"],
-      award: "Winner Tech Expo 2024",
-      category: "Robotics"
-    },
-    {
-      title: "THRIFTify E-Commerce",
-      description: "Full-featured e-commerce platform built with React and Node.js, offering seamless shopping experience with modern UI/UX.",
-      tech: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
-      category: "Web Development"
+      description: "Coded hard-coded servo paths on an Arduino Nano to drive a 3D-printed, 3-axis robotic arm with a claw pickup mechanism using DS5160 and SG90 servos.",
+      tech: ["Arduino Nano", "Servos", "3D Printing (PLA+)", "C++"],
+      award: "1st Prize Project Expo 2024",
+      category: ["HARDWARE", "IOT"],
+      featured: false
     },
     {
       title: "Gourmet Fiesta",
-      description: "Django-based cooking website featuring recipe management, user authentication, and interactive cooking guides.",
-      tech: ["Django", "Python", "PostgreSQL", "Bootstrap"],
-      category: "Web Development"
+      description: "Django application for recipe sharing featuring dynamically incrementable ingredients, step-by-step guides, and a multi-parameter search engine.",
+      tech: ["Django", "SQLite", "Python", "JSON"],
+      award: "2nd Runner Up Mind Maze 2024",
+      category: ["FULL-STACK"],
+      featured: false
     },
     {
-      title: "Criss-Cross Android Game",
-      description: "Modern take on the classic game built with Jetpack Compose, featuring smooth animations and intuitive gameplay.",
-      tech: ["Jetpack Compose", "Kotlin", "Android Studio", "Material Design"],
-      category: "Mobile Game"
+      title: "EcoChef",
+      description: "AI-driven kitchen demand forecasting tool designed to predict inventory needs and optimize logistics using time-series data.",
+      tech: ["FastAPI", "PostgreSQL", "Prophet", "Streamlit"],
+      award: "Pitched at Hackmol 7.0",
+      category: ["AI & IOT"],
+      featured: false
     },
     {
-      title: "ANSI UI Library",
-      description: "C++23 console UI library available on GitHub for production use, utilizing ANSI codes and escape codes for terminal interfaces.",
-      tech: ["C++23", "ANSI Codes", "Console UI", "Git"],
-      category: "Open Source Library"
+      title: "ATUI ANSI Terminal UI",
+      description: "A header-only C++ library utilizing ANSI escape codes to construct interactive and animated terminal frames and windows.",
+      tech: ["C++", "ANSI Codes", "Console UI"],
+      category: ["HARDWARE"], 
+      featured: false
     }
   ];
 
+  const filteredProjects = filter === "ALL"
+    ? projects
+    : projects.filter(p => p.category.includes(filter));
+
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">Featured Projects</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A showcase of my technical expertise across web, mobile, and hardware development
+    <section id="projects" className="py-24 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
+
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">Projects</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-mono">
+            <span className="text-primary">{">"}</span> ./execute_portfolio.sh --show-all
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <Card 
-              key={index}
-              className="glass-card border-primary/20 hover:glow-effect hover:scale-105 transition-all duration-300 animate-scale-in"
-              style={{ animationDelay: `${index * 100}ms` }}
+        {/* Command-Line Filter Navigation */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-4 py-2 font-mono text-xs md:text-sm border transition-all duration-300 rounded flex items-center gap-2
+                ${filter === cat
+                  ? "bg-primary/10 border-primary text-primary shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                  : "border-secondary/30 text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}
             >
-              <CardHeader>
-                <div className="flex justify-between items-start mb-2">
-                  <Badge variant="outline" className="border-primary/50 text-primary">
-                    {project.category}
+              {filter === cat && <Terminal className="w-3 h-3 animate-pulse" />}
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Dynamic Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project, index) => (
+            <Card
+              key={project.title}
+              className={`group glass-card border-secondary/20 hover:border-primary/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)] flex flex-col
+                ${project.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"}`}
+            >
+              <CardHeader className="pb-4">
+                <div className="flex justify-between items-start mb-4">
+                  <Badge variant="outline" className="border-primary/30 text-primary font-mono text-[10px] bg-primary/5">
+                    {project.category.join(", ")}
                   </Badge>
-                  {project.award && (
-                    <Trophy className="h-5 w-5 text-secondary" />
-                  )}
+
+                  {/* Interactive Action Links (Visible on Hover) */}
+                  <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Github className="w-5 h-5" /></a>
+                    <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><ExternalLink className="w-5 h-5" /></a>
+                  </div>
                 </div>
-                <CardTitle className="text-2xl mb-2">{project.title}</CardTitle>
+
+                <CardTitle className="text-2xl mb-2 group-hover:text-primary transition-colors">
+                  {project.title}
+                </CardTitle>
+
                 {project.award && (
-                  <div className="text-sm text-secondary font-medium mb-2">
-                    🏆 {project.award}
+                  <div className="text-xs text-yellow-500/80 font-mono mb-2 flex items-center gap-2">
+                    <Trophy className="h-3 w-3" /> {project.award}
                   </div>
                 )}
-                <CardDescription className="text-base">{project.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+
+              <CardContent className="mt-auto flex flex-col justify-end">
+                <CardDescription className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                  {project.description}
+                </CardDescription>
+
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, i) => (
-                    <Badge key={i} variant="secondary" className="bg-muted/50 text-gray-600 hover:text-gray-400 hover:bg-muted/80">
+                    <span key={i} className="text-[10px] font-mono border border-secondary/30 rounded px-2 py-1 text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors">
                       {tech}
-                    </Badge>
+                    </span>
                   ))}
                 </div>
               </CardContent>

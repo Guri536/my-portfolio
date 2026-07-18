@@ -101,61 +101,94 @@ const InteractiveFace2D = () => {
 
       let particlesArray: Particle[] = [];
 
-      const init = () => {
-        particlesArray = [];
-        const step = 5;
-        for (let y = 0; y < canvas.height; y += step) {
-          for (let x = 0; x < canvas.width; x += step) {
-            const index = (y * canvas.width + x) * 4;
-            const r = imageData.data[index];
-            const g = imageData.data[index + 1];
-            const b = imageData.data[index + 2];
-            const alpha = imageData.data[index + 3];
-            const brightness = (r + g + b) / 3;
+      function downloadParticles() {
+        // Strip out any complex class methods and just keep the raw coordinates
+        const rawData = particlesArray.map(p => ({ x: p.x, y: p.y }));
 
-            if (brightness <= 255 && alpha > 10) {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rawData));
+        const downloadAnchorNode = document.createElement('a');
 
-              let density = 0;
-              for (let dy = -step; dy <= step; dy += step) {
-                for (let dx = -step; dx <= step; dx += step) {
-                  if (dx === 0 && dy === 0) continue;
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "particle-wireframe.json");
+        document.body.appendChild(downloadAnchorNode);
 
-                  const nx = x + dx;
-                  const ny = y + dy;
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      }
 
-                  if (nx >= 0 && nx < canvas.width && ny >= 0 && ny < canvas.height) {
-                    const neighborIndex = (ny * canvas.width + nx) * 4;
+      async function initParticles() {
+        try {
+          // Load the precomputed coordinates
+          const response = await fetch('src/assets/particle-wireframe.json');
+          const coordinates = await response.json();
 
-                    if (imageData.data[neighborIndex + 3] > 10) {
-                      density++;
-                    }
-                  }
-                }
-              }
+          // Rebuild your Particle objects
+          particlesArray = coordinates.map(coord => new Particle(coord.x, coord.y));
 
-              // 2. Apply jitter ONLY if surrounded by at least 5 other pixels (dense cluster)
-              let jitterX = 0;
-              let jitterY = 0;
-
-              if (density >= 6) {
-                if (Math.random() < 0.7) {
-                  continue;
-                }
-
-                jitterX = (Math.random() - 0.5) * 5;
-                jitterY = (Math.random() - 0.5) * 5;
-              }
-              // Optional: You can also keep your original jitter for medium density
-              else if (density >= 5) {
-                jitterX = (Math.random() - 0.5) * 5;
-                jitterY = (Math.random() - 0.5) * 5;
-              }
-
-              particlesArray.push(new Particle(x + jitterX, y + jitterY));
-            }
-          }
+          // Start your animation loop here
+          animate();
+        } catch (error) {
+          console.error("Failed to load particle data:", error);
         }
-      };
+      }
+
+      initParticles()
+
+      // const init = () => {
+      //   particlesArray = [];
+      //   const step = 5;
+      //   for (let y = 0; y < canvas.height; y += step) {
+      //     for (let x = 0; x < canvas.width; x += step) {
+      //       const index = (y * canvas.width + x) * 4;
+      //       const r = imageData.data[index];
+      //       const g = imageData.data[index + 1];
+      //       const b = imageData.data[index + 2];
+      //       const alpha = imageData.data[index + 3];
+      //       const brightness = (r + g + b) / 3;
+
+      //       if (brightness <= 255 && alpha > 10) {
+
+      //         let density = 0;
+      //         for (let dy = -step; dy <= step; dy += step) {
+      //           for (let dx = -step; dx <= step; dx += step) {
+      //             if (dx === 0 && dy === 0) continue;
+
+      //             const nx = x + dx;
+      //             const ny = y + dy;
+
+      //             if (nx >= 0 && nx < canvas.width && ny >= 0 && ny < canvas.height) {
+      //               const neighborIndex = (ny * canvas.width + nx) * 4;
+
+      //               if (imageData.data[neighborIndex + 3] > 10) {
+      //                 density++;
+      //               }
+      //             }
+      //           }
+      //         }
+
+      //         // 2. Apply jitter ONLY if surrounded by at least 5 other pixels (dense cluster)
+      //         let jitterX = 0;
+      //         let jitterY = 0;
+
+      //         if (density >= 6) {
+      //           if (Math.random() < 0.7) {
+      //             continue;
+      //           }
+
+      //           jitterX = (Math.random() - 0.5) * 5;
+      //           jitterY = (Math.random() - 0.5) * 5;
+      //         }
+      //         // Optional: You can also keep your original jitter for medium density
+      //         else if (density >= 5) {
+      //           jitterX = (Math.random() - 0.5) * 5;
+      //           jitterY = (Math.random() - 0.5) * 5;
+      //         }
+
+      //         particlesArray.push(new Particle(x + jitterX, y + jitterY));
+      //       }
+      //     }
+      //   }
+      // };
 
       // Connects close nodes with lines to create the wireframe
       const connect = () => {
@@ -225,8 +258,6 @@ const InteractiveFace2D = () => {
 
         requestAnimationFrame(animate);
       };
-
-      init();
       animate();
     };
 

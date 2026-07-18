@@ -286,7 +286,7 @@ const About = () => {
               className="bg-[#0a0a0a] rounded-lg p-6 font-mono text-sm md:text-base border border-primary/20 shadow-[0_0_20px_rgba(16,185,129,0.1)] h-full flex flex-col relative overflow-hidden"
             >
               {/* Optional background grid/scanline effect */}
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none"></div>
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px)] bg-size-[100%_4px] pointer-events-none"></div>
 
               {/* Boot Sequence */}
               {termStep === 0 && (
