@@ -119,7 +119,7 @@ const InteractiveFace2D = () => {
       async function initParticles() {
         try {
           // Load the precomputed coordinates
-          const response = await fetch('src/assets/particle-wireframe.json');
+          const response = await fetch('/particle-wireframe.json');
           const coordinates = await response.json();
 
           // Rebuild your Particle objects
