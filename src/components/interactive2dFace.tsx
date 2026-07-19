@@ -76,25 +76,36 @@ const InteractiveFace2D = () => {
         }
 
         update() {
+          // Calculate a slow, continuous sine wave based on time and the particle's original position
+          const time = Date.now() * 0.001;
+          const driftX = Math.sin(time + this.baseX * 0.05) * 0.8;
+          const driftY = Math.cos(time + this.baseY * 0.05) * 0.9;
+
           if (mouse.x != null && mouse.y != null) {
             const dx = mouse.x - this.x;
             const dy = mouse.y - this.y;
-            this.distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (this.distanceToMouse < mouse.radius) {
-              // Magnetic pull: Nudge nodes slightly towards the mouse
-              const force = (mouse.radius - this.distanceToMouse) / mouse.radius;
-              this.x -= (dx / this.distanceToMouse) * force * 1.5;
-              this.y += (dy / this.distanceToMouse) * force * 1.5;
+            if (distance < mouse.radius) {
+              const forceDirectionX = dx / distance;
+              const forceDirectionY = dy / distance;
+              const force = (mouse.radius - distance) / mouse.radius;
+
+              // Push particles away
+              const directionX = forceDirectionX * force * 2;
+              const directionY = forceDirectionY * force * 2;
+
+              this.x -= directionX;
+              this.y += directionY;
             } else {
-              // Smoothly spring back to original position
-              if (this.x !== this.baseX) this.x -= (this.x - this.baseX) * 0.15;
-              if (this.y !== this.baseY) this.y -= (this.y - this.baseY) * 0.15;
+              // Return to base position PLUS the idle drift
+              if (this.x !== this.baseX) this.x -= (this.x - (this.baseX + driftX)) * 0.15;
+              if (this.y !== this.baseY) this.y -= (this.y - (this.baseY + driftY)) * 0.15;
             }
           } else {
-            this.distanceToMouse = 999;
-            if (this.x !== this.baseX) this.x -= (this.x - this.baseX) * 0.15;
-            if (this.y !== this.baseY) this.y -= (this.y - this.baseY) * 0.15;
+            // No mouse: smoothly glide back to base position PLUS the idle drift
+            this.x -= (this.x - (this.baseX + driftX)) * 0.05;
+            this.y -= (this.y - (this.baseY + driftY)) * 0.05;
           }
         }
       }

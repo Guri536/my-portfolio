@@ -20,29 +20,33 @@ const MotionBackground = () => {
             background: {
                 color: { value: "transparent" },
             },
-            fpsLimit: 60,
+            // 1. Bump FPS limit for smoother rendering
+            fpsLimit: 144,
             particles: {
                 color: {
                     value: ["#10b981", "#22d3ee"],
                 },
                 links: {
                     color: "#10b981",
-                    distance: 100,
+                    distance: 200,
                     enable: true,
-                    opacity: 0.2,
+                    opacity: 0.3,
                     width: 1,
                 },
                 move: {
-                    direction: "bottom" as const,
+                    // 2. "none" makes them flow in completely random directions
+                    direction: "none" as const,
                     enable: true,
                     outModes: { default: "out" as const },
-                    random: true,
-                    speed: 0.5,
+                    // 3. Set random to FALSE to stop the erratic micro-stutters
+                    random: false,
+                    speed: 2,
                     straight: false,
                 },
                 number: {
                     density: { enable: true },
-                    value: 120,
+                    // 4. Reduce this! 120 text nodes + links will kill browser performance
+                    value: 45,
                 },
                 opacity: {
                     value: { min: 0.7, max: 1 },
@@ -52,13 +56,12 @@ const MotionBackground = () => {
                         sync: true,
                     },
                 },
-                // shape: "circle",
-                // size: { value: { min: 0.2, max: 4 } },
                 shape: {
                     type: "text" as const,
                     options: {
                         text: {
-                            value: ["Kotlin",
+                            value: [
+                                "Kotlin",
                                 "FastAPI",
                                 "Django",
                                 "Laravel",
@@ -121,7 +124,7 @@ const MotionBackground = () => {
                     },
                     connect: {
                         distance: 1000,
-                        radius: 200,
+                        radius: 250,
                         links: {
                             opacity: 0.4,
                         },

@@ -66,10 +66,13 @@ const FauxTerminal = ({ type, limit }: { type: "fullstack" | "cloud" | "ai", lim
     "inference time: 42ms",
     "[langgraph] node transition OK"
   ];
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 
   useEffect(() => {
     const source = type === "fullstack" ? fullstackLogs :
       type === "cloud" ? cloudLogs : aiLogs;
+
     let timeoutId: ReturnType<typeof setTimeout>;
 
     const addLog = () => {
@@ -77,7 +80,10 @@ const FauxTerminal = ({ type, limit }: { type: "fullstack" | "cloud" | "ai", lim
 
       setLines(prev => {
         const newLines = [...prev, randomLog];
-        return newLines.slice(limit);
+
+        const currentLimit = isMobile ? (limit == -3 ? -2 : -4) : limit;
+
+        return newLines.slice(currentLimit);
       });
 
       const nextDelay = Math.random() * 1500 + 500;
@@ -88,11 +94,11 @@ const FauxTerminal = ({ type, limit }: { type: "fullstack" | "cloud" | "ai", lim
     return () => clearTimeout(timeoutId);
   }, [type]);
 
-  const heightOfCont = (limit == -3) ? "h-16" : "h-72"
+  const heightOfCont = isMobile ? (limit == -3 ? "h-12" : "h-20") : (limit == -3 ? "h-16" : "h-72")
 
   return (
     // The group-hover classes here handle the "shoot up and vanish" effect
-    <div className={`absolute bottom-2 left-6 right-6 flex flex-col gap-1 opacity-30 group-hover:opacity-0 
+    <div className={`absolute xl:bottom-2 bottom-1 left-6 right-6 flex flex-col gap-1 opacity-30 group-hover:opacity-0 
                     group-hover:-translate-y-8 transition-all duration-500 pointer-events-none font-mono 
                     text-[9px] md:text-[10px] text-muted-foreground overflow-hidden ${heightOfCont}`}>
       {lines.map((line, i) => (
@@ -106,10 +112,12 @@ const FauxTerminal = ({ type, limit }: { type: "fullstack" | "cloud" | "ai", lim
 
 const About = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [termStep, setTermStep] = useState(0);
 
   const terminalRef = useRef<HTMLDivElement>(null);
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
     // 2. Set up the observer
@@ -210,15 +218,23 @@ const About = () => {
               else "md:col-span-1 min-h-[12rem] md:min-h-[14rem]";
 
               return (
-                /* 1. The Ghost Container: Stays rigidly in the grid to prevent layout shifts */
-                <div key={index} className={`relative group z-10 hover:z-50 ${bentoClass}`}>
+                /* 1. The Ghost Container: Conditionally apply z-50 when clicked so it pops OVER the next card */
+                <div
+                  key={index}
+                  className={`relative group transition-all duration-300 ${expandedIndex === index ? "z-50" : "z-10 hover:z-40"} ${bentoClass}`}
+                  onClick={() => setExpandedIndex(expandedIndex === index ? null : (isMobile ? index : null))}
+                >
 
-                  /* 2. The Pop-Out Card: Absolute positioning allows it to expand over other elements */
+                  {/* 2. The Pop-Out Card: Restored min-h-full and applied smooth percentage-based horizontal expansion */}
                   <Card
-                    className="absolute top-0 left-0 w-full h-fit min-h-full glass-card border-secondary/20 hover:border-primary/50 
-                              bg-background/90 backdrop-blur-md hover:bg-[#0a0a0a] transition-all duration-500 overflow-hidden
-                              shadow-lg group-hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)] flex flex-col 
-                              origin-top group-hover:scale-[1.05] group-hover:-translate-y-2"
+                    className={`absolute top-0 h-fit min-h-full glass-card transition-all duration-500 overflow-hidden shadow-lg flex flex-col origin-top 
+                      ${expandedIndex === index
+                        ? "border-primary/50 bg-[#0a0a0a] shadow-[0_10px_30px_rgba(16,185,129,0.2)] -translate-y-1 md:-translate-y-2 left-[-2%] w-[104%] md:left-[-5%] md:w-[110%]"
+                        : `border-secondary/20 bg-background/90 backdrop-blur-md left-0 w-full 
+                          hover:border-primary/50 hover:bg-[#0a0a0a] 
+                          group-hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)] group-hover:-translate-y-2 
+                          md:group-hover:left-[-5%] md:group-hover:w-[110%]`
+                      }`}
                   >
                     <CardContent className="p-6 h-full flex flex-col justify-between">
 
@@ -233,7 +249,7 @@ const About = () => {
                       {index === 1 && <FauxTerminal type="ai" limit={-3} />}
                       {index === 4 && <FauxTerminal type="cloud" limit={-3} />}
 
-                      <div className="mt-auto z-10 relative bg-background/5 rounded-t-lg">
+                      <div className="mt-auto z-0 relative bg-background/5 rounded-t-lg">
                         <h3 className="text-xl font-bold text-foreground mb-1 group-hover:gradient-text transition-all duration-300">
                           {stat.value}
                         </h3>
@@ -242,12 +258,21 @@ const About = () => {
                           {stat.label}
                         </p>
 
-                        {/* Smooth height reveal */}
-                        <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                          <p className="text-xs text-muted-foreground leading-relaxed overflow-hidden font-mono mt-3 border-t border-secondary/30 pt-3 whitespace-pre-line">
-                            <span className="text-primary mr-2">{">"}</span>{stat.description}
-                          </p>
+                        {/* Smooth height reveal (Controlled by expandedIndex state) */}
+                        <div
+                          className={`grid transition-all duration-500 ease-in-out 
+                            ${expandedIndex === index
+                              ? "grid-rows-[1fr] opacity-100 z-50"
+                              : "grid-rows-[0fr] opacity-0 md:group-hover:grid-rows-[1fr] md:group-hover:opacity-100"
+                            }`}
+                        >
+                          <div className="overflow-hidden">
+                            <p className="text-sm text-muted-foreground leading-relaxed font-mono mt-3 border-t border-secondary/30 pt-3 whitespace-pre-line">
+                              <span className="text-primary mr-2">{">"}</span>{stat.description}
+                            </p>
+                          </div>
                         </div>
+
                       </div>
 
                     </CardContent>
@@ -258,7 +283,7 @@ const About = () => {
           </div>
 
           {/* Right Column: Interactive Wireframe Face */}
-          <div className="relative h-[91%] min-h-100 flex items-center justify-center bg-background/30 rounded-lg border border-dashed border-secondary/30">
+          <div className="relative h-[91%] mt-20 xl:mt-0 min-h-100 flex items-center justify-center bg-background/30 rounded-lg border border-dashed border-secondary/30">
             <div className="absolute top-4 left-4 text-xs font-mono text-muted-foreground/50 pointer-events-none">
               [INTERACTIVE_MESH_OF_ME]
             </div>
@@ -321,7 +346,7 @@ const About = () => {
 
                   {termStep >= 4 && (
                     <div className="text-muted-foreground mt-2 animate-in fade-in slide-in-from-bottom-1 duration-500">
-                      <span className="text-primary/50">{">"}</span> Open to roles in <span className="text-emerald-400">Android, Backend, IoT, DevOps, AI/ML, or TPM.</span> 
+                      <span className="text-primary/50">{">"}</span> Open to roles in <span className="text-emerald-400">Android, Backend, IoT, DevOps, AI/ML, or TPM.</span>
                       <br />
                       <span className="text-primary/50">{">"}</span> Status: Based in Chandigarh-Mohali, ready to relocate.
                     </div>
