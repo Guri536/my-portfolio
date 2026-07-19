@@ -9,6 +9,11 @@ const Skills = () => {
       skills: ["Python", "Kotlin", "C++23", "Java", "TypeScript", "PHP", "Dart", "JavaScript"]
     },
     {
+      id: "languages",
+      title: "Core Languages",
+      skills: ["Python", "Kotlin", "C++23", "Java", "TypeScript", "PHP", "Dart", "JavaScript"]
+    },
+    {
       id: "ai_vision",
       title: "Applied AI & Vision",
       skills: ["PyTorch", "SAM3", "ResNet18", "YOLO", "OpenRouter API", "OpenCV"]
@@ -32,16 +37,12 @@ const Skills = () => {
       id: "client_ui",
       title: "Client Architecture",
       skills: ["Kotlin Multiplatform", "Jetpack Compose", "React", "Node.js", "TailwindCSS", "Flutter"]
-    }
-  ];
-
-  const systemProcesses = [
-    { pid: "8042", user: "root", sys: "89.4", process: "./sys_core", modules: ["Python", "Kotlin", "C++23", "Java", "TypeScript", "PHP"] },
-    { pid: "9105", user: "guri", sys: "94.2", process: "./ai_vision", modules: ["PyTorch", "SAM3", "ResNet18", "YOLO", "Gemini_API", "OpenCV"] },
-    { pid: "3021", user: "root", sys: "72.8", process: "./iot_edge", modules: ["ESP32/CAM", "Arduino", "Raspberry_Pi", "RFID", "Sensors"] },
-    { pid: "5504", user: "guri", sys: "85.1", process: "./backend_db", modules: ["FastAPI", "Django", "Laravel", "PostgreSQL", "SQLite", "Ktor"] },
-    { pid: "1109", user: "root", sys: "64.3", process: "./cloud_ops", modules: ["GCP", "Docker", "GitHub_Actions", "Git"] },
-    { pid: "4401", user: "guri", sys: "78.9", process: "./client_ui", modules: ["KMP", "Jetpack_Compose", "React", "Node.js", "TailwindCSS"] }
+    },
+    {
+      id: "design_tools",
+      title: "Design Tools",
+      skills: ["Adobe Illustrator", "Adobe After Effects", "GIMP", "Figma", "Canva", "Mermaid"]
+    },
   ];
 
   const daemons = ["Decision_Making", "Collaboration", "Reliability", "Constructive_Feedback", "Adaptability"];
@@ -49,7 +50,7 @@ const Skills = () => {
   return (
     <section id="skills" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4">
-        
+
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">Technical Skills</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto font-mono text-sm">
@@ -60,7 +61,7 @@ const Skills = () => {
         {/* Minimalist JSON Terminal */}
         <div className="w-full max-w-7xl mx-auto bg-[#0a0a0a] rounded-xl border border-secondary/30 
                         shadow-[0_0_30px_rgba(16,185,129,0.05)] overflow-hidden font-mono text-sm md:text-base animate-fade-in">
-          
+
           {/* Mac/Linux OS Header */}
           <div className="bg-[#111] px-4 py-3 border-b border-secondary/30 flex items-center gap-2 text-muted-foreground">
             <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
@@ -72,7 +73,7 @@ const Skills = () => {
           {/* JSON Body */}
           <div className="p-6 md:p-10 overflow-x-auto custom-scrollbar text-foreground leading-relaxed">
             <div><span className="text-yellow-500">{"{"}</span></div>
-            
+
             <div className="pl-6 md:pl-10 flex flex-col gap-4 my-2">
               {skillCategories.map((cat, index) => (
                 <div key={index} className="group flex flex-col md:flex-row md:items-start gap-1 md:gap-4">
@@ -81,7 +82,7 @@ const Skills = () => {
                     <span className="text-blue-400 font-semibold text-xl uppercase">"{cat.id}"</span>
                     <span className="text-foreground">:</span> <span className="text-yellow-500">{"["}</span>
                   </div>
-                  
+
                   {/* JSON Array Values */}
                   <div className="pl-4 md:pl-0 flex flex-wrap gap-x-2 text-green-400">
                     {cat.skills.map((skill, i) => (
@@ -90,7 +91,7 @@ const Skills = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   <div>
                     <span className="text-yellow-500 align-text-bottom">{"]"}</span>
                     {index < skillCategories.length - 1 ? <span className="text-foreground">,</span> : ""}
@@ -98,21 +99,21 @@ const Skills = () => {
                 </div>
               ))}
             </div>
-            
+
             {/* Interpersonal Skills Array */}
             <div className="pl-6 md:pl-10 mt-6 pt-6 border-t border-secondary/20 flex flex-col md:flex-row md:items-start gap-1 md:gap-4">
-               <div className="whitespace-nowrap">
-                  <span className="text-blue-400 font-semibold uppercase text-lg">"interpersonal"</span>
-                  <span className="text-foreground">:</span> <span className="text-yellow-500">{"["}</span>
-                </div>
-                <div className="pl-4 md:pl-0 flex flex-wrap gap-x-2 text-primary/70">
-                  {["Decision Making", "Collaboration", "Reliability", "Constructive Feedback", "Adaptability"].map((skill, i) => (
-                      <span key={i}>
-                        "{skill}"{i < 4 ? <span className="text-foreground">,</span> : ""}
-                      </span>
-                  ))}
-                </div>
-                <div><span className="text-yellow-500">{"]"}</span></div>
+              <div className="whitespace-nowrap">
+                <span className="text-blue-400 font-semibold uppercase text-lg">"interpersonal"</span>
+                <span className="text-foreground">:</span> <span className="text-yellow-500">{"["}</span>
+              </div>
+              <div className="pl-4 md:pl-0 flex flex-wrap gap-x-2 text-primary/70">
+                {["Decision Making", "Collaboration", "Reliability", "Constructive Feedback", "Adaptability"].map((skill, i) => (
+                  <span key={i}>
+                    "{skill}"{i < 4 ? <span className="text-foreground">,</span> : ""}
+                  </span>
+                ))}
+              </div>
+              <div><span className="text-yellow-500">{"]"}</span></div>
             </div>
 
             <div><span className="text-yellow-500">{"}"}</span></div>

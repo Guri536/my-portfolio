@@ -69,7 +69,8 @@ const Projects = () => {
       category: ["MOBILE", "AI/ML"],
       featured: true,
       github: "https://github.com/Guri536/Peri-Lily",
-      demo: ""
+      demo: "",
+      gitDoc: "https://guri536.github.io/Peri-Lily/"
     },
     {
       title: "Resumini",
@@ -79,7 +80,8 @@ const Projects = () => {
       category: ["FULL-STACK", "AI/ML"],
       featured: false,
       github: "https://github.com/Guri536/Resumini",
-      demo: "https://drive.google.com/drive/folders/1zL7AUlxqyzWC6B4NJ3Qmd6gvY4SXzMz7?usp=drive_link"
+      demo: "https://drive.google.com/drive/folders/1zL7AUlxqyzWC6B4NJ3Qmd6gvY4SXzMz7?usp=drive_link",
+      gitDoc: "https://guri536.github.io/Resumini/"
     },
     {
       title: "LoopLink",
@@ -88,7 +90,8 @@ const Projects = () => {
       category: ["MOBILE", "FULL-STACK"],
       featured: false,
       github: "https://github.com/Guri536/LoopLink",
-      demo: "https://drive.google.com/drive/folders/17ulPru-3AT2d3xuaw0U32irRb5LMQLpR?usp=sharing"
+      demo: "https://drive.google.com/drive/folders/17ulPru-3AT2d3xuaw0U32irRb5LMQLpR?usp=sharing",
+      gitDoc: "https://guri536.github.io/LoopLink/"
     },
     {
       title: "RFID Attendance System",
@@ -138,7 +141,42 @@ const Projects = () => {
       featured: false,
       github: "https://github.com/Guri536/ATUI",
       demo: ""
-    }
+    },
+    {
+      title: "Weather App - Jetpack Compose",
+      description: "Simple city-search weather app.",
+      tech: ["Jetpack Compose", "Kotlin", "Weather API"],
+      category: ["MOBILE"],
+      featured: false,
+      github: "https://github.com/Guri536/Weather_App",
+      demo: "https://drive.google.com/drive/folders/18q68cO8EblNgv2D5io93CO67Jj8TE14y?usp=sharing"
+    },
+    {
+      title: "Tic-Tac-Toe Game",
+      description: "Tic-Tac-Toe/Circles-and-Crosses app made using Jetpack Compose, made for 2 players playing together on the same device.",
+      tech: ["Jetpack Compose", "Kotlin"],
+      category: ["MOBILE"],
+      featured: false,
+      github: "https://github.com/Guri536/Tic-Tac-Toe",
+      demo: "https://drive.google.com/drive/folders/1QoHUdKLy0urldE1kCGKfXR80x3_wjlNz?usp=sharing"
+    },
+    {
+      title: "Thriftify - E-Commerce Clone",
+      description: "A Django based simple E-commerce clone, with discoverable items and authentication.",
+      tech: ["Django", "SQLite", "Python"],
+      category: ["FULL-STACK"],
+      featured: false,
+      github: "https://github.com/Guri536/E-Commerce-Clone",
+      demo: "https://drive.google.com/drive/folders/1kDJ7tlEBgz34-AU0FaNnFKRYznbGTAIK?usp=sharing"
+    },
+    {
+      title: "ASKEI Hotels - Hotel Management WebApp",
+      description: " First Django web app for hotel booking with check-in/out invoicing; earliest full-stack project.",
+      tech: ["Django", "MySQL", "Python", "AJAX"],
+      category: ["FULL-STACK"],
+      featured: false,
+      demo: "https://drive.google.com/drive/folders/18Pf5cgu6kuV6BBl6wrghwWDMI8ZaerqG?usp=sharing"
+    },
   ];
 
   const [activeProject, setActiveProject] = useState(projects[0])
@@ -180,7 +218,7 @@ const Projects = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start lg:min-h-150">
 
           {/* Left Column: The File Directory (Master List) */}
-          <div className="lg:col-span-4 flex flex-col gap-2 font-mono h-60 max-h-60 lg:h-150 lg:max-h-none overflow-y-auto pr-2 custom-scrollbar 
+          <div className="lg:col-span-4 flex flex-col gap-2 font-mono h-60 max-h-60 lg:h-125 lg:max-h-none overflow-y-auto pr-2 custom-scrollbar 
                           border border-secondary/20 lg:border-none pl-2 pb-2 lg:p-0 rounded-lg lg:rounded-none bg-[#0a0a0a]/50 lg:bg-transparent">
             <div className="text-xs text-muted-foreground mb-4 border-y border-secondary/30 pb-2 sticky top-0 bg-background/95 backdrop-blur z-10 pt-2">
               ~/projects/system_architectures
@@ -212,7 +250,8 @@ const Projects = () => {
             ref={detailsRef}
             className="lg:col-span-8 sticky top-24 scroll-mt-24"
           >
-            <Card className="glass-card border-secondary/20 bg-[#0a0a0a] min-h-125 flex flex-col">
+            <Card className={`glass-card border-secondary/20 bg-[#0a0a0a] min-h-125 flex flex-col cursor-pointer ${activeProject.gitDoc && "hover:border-primary/50"}`}
+              onClick={() => activeProject.gitDoc && window.open(activeProject.gitDoc, "_blank")}>
               <CardHeader className="border-b border-secondary/20 pb-6">
                 <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
                   <Badge variant="outline" className="border-primary/30 text-primary font-mono text-[10px] bg-primary/5">
@@ -247,7 +286,7 @@ const Projects = () => {
                 <div className="text-base text-muted-foreground leading-relaxed mb-8 font-mono">
                   <span className="text-primary mr-2">{"$"}</span>
                   cat ./readme.md
-                  <div className="mt-4 text-foreground/80 font-mono">
+                  <div className="mt-4 text-foreground/80 font-dotted">
                     {activeProject.description}
                   </div>
                 </div>
