@@ -40,7 +40,7 @@ const MotionBackground = () => {
                     outModes: { default: "out" as const },
                     // 3. Set random to FALSE to stop the erratic micro-stutters
                     random: false,
-                    speed: 2,
+                    speed: 0.5,
                     straight: false,
                 },
                 number: {
